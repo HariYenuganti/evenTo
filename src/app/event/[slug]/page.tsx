@@ -1,4 +1,5 @@
 import H1 from '@/components/h1';
+import { capitalizeFirstLetter, getEvent, sleep } from '@/lib/utils';
 import Image from 'next/image';
 import React from 'react';
 
@@ -8,13 +9,20 @@ type EventPageProps = {
   };
 };
 
+export async function generateMetadata({ params }: EventPageProps) {
+  const slug = params.slug;
+
+  const event = await getEvent(slug);
+
+  return {
+    title: event.name,
+  };
+}
+
 export default async function EventPage({ params }: EventPageProps) {
   const slug = params.slug;
 
-  const response = await fetch(
-    `https://bytegrad.com/course-assets/projects/evento/api/events/${slug}`
-  );
-  const event = await response.json();
+  const event = await getEvent(slug);
 
   return (
     <main>
