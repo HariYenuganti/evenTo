@@ -39,6 +39,19 @@ export default async function EventsPage({
     throw new Error('Invalid page number');
   }
 
+  if (!['all', 'austin', 'seattle'].includes(city)) {
+    return (
+      <main className="flex flex-col items-center py-24 px-[20px] min-h-[110vh]">
+        <H1 className="mb-28">{`Events in ${capitalizeFirstLetter(city)}`}</H1>
+        <div className="max-w-2xl text-center">
+          <p className="text-lg text-white/75">
+            Currently only Austin and Seattle work, others are work in progress.
+          </p>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="flex flex-col items-center py-24 px-[20px] min-h-[110vh]">
       <H1 className="mb-28">
