@@ -18,7 +18,7 @@ type EventsPageProps = MetadataProps & {
 };
 
 export function generateMetadata({ params }: MetadataProps) {
-  const city = params.city;
+  const city = params.city.toLowerCase();
   return {
     title:
       city === 'all'
@@ -33,7 +33,7 @@ export default async function EventsPage({
   params,
   searchParams,
 }: EventsPageProps) {
-  const city = params.city;
+  const city = params.city.toLowerCase();
   const parsedPage = pageNumberSchema.safeParse(searchParams.page);
   if (!parsedPage.success) {
     throw new Error('Invalid page number');
